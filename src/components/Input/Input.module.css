@@ -1,0 +1,23 @@
+.input {
+    font-family: Roboto;
+    color: #403866;
+    line-height: 1.2;
+    font-size: 16px;
+    display: block;
+    height: 35px;
+    box-sizing: border-box;
+    border: 1px solid #b4aaaa;
+    border-radius: 5px;
+    transition: all .15s ease;
+    outline: none;
+    padding: 0 8px;
+    will-change: opacity;
+}
+
+.input:focus {
+    box-shadow: 0 0 0 2px #003DAE;
+}
+
+.input:hover:not(:focus) {
+    border-color: #373537;
+}

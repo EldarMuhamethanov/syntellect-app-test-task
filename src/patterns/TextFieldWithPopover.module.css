@@ -1,0 +1,10 @@
+.wrapper {
+    position: relative;
+    width: 200px;
+}
+
+.popover {
+    left: 0;
+    top: 100%;
+    transform: translateY(15px);
+}

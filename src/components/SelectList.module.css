@@ -1,0 +1,10 @@
+.list {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    position: relative;
+}
+
+.loadingList {
+    height: 250px;
+}

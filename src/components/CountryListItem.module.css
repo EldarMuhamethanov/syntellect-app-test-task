@@ -1,0 +1,25 @@
+.itemContainer {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.itemContainer:hover {
+    background: rgba(55, 53, 47, 0.08);
+}
+
+.flag {
+    width: 50px;
+    height: 30px;
+}
+
+.nameWrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.name {
+    font-family: Roboto, serif;
+}
