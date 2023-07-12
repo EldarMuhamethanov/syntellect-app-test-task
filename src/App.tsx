@@ -3,15 +3,15 @@ import "./App.module.css";
 import {HelloWorldTextField} from "./HelloWorldTextField";
 import {TextFieldWithAlert} from "./TextFieldWithAlert";
 import styles from './App.module.css'
-import {CountriesInput} from "./CountriesInput";
+import {CountryAutoComplete} from "./CountryAutoComplete";
 
 function App() {
   return (
       <div className={styles.app}>
         <HelloWorldTextField />
         <TextFieldWithAlert />
-        <CountriesInput maxHintsCount={3}/>
-        <CountriesInput maxHintsCount={10}/>
+        <CountryAutoComplete maxHintsCount={3}/>
+        <CountryAutoComplete maxHintsCount={10}/>
       </div>
   )
 }

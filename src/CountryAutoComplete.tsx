@@ -5,7 +5,7 @@ import {CountryInfo} from "./api/apiService";
 import {SelectList} from "./components/SelectList";
 import {CountryListItem} from "./components/CountryListItem";
 import {observer} from "mobx-react-lite";
-import CountryAutoComplete from "./store/CountryAutoComplete";
+import CountryAutoCompleteState from "./store/CountryAutoCompleteState";
 import {createTextInput} from "./store/TextInput";
 
 type CountriesInputProps = {
@@ -35,10 +35,10 @@ function getPopoverContent(
         : null
 }
 
-const CountriesInput = observer(({
+const CountryAutoComplete = observer(({
     maxHintsCount,
 }: CountriesInputProps) => {
-    const countryAutoComplete = useMemo(() => new CountryAutoComplete(createTextInput(), maxHintsCount), [maxHintsCount])
+    const countryAutoComplete = useMemo(() => new CountryAutoCompleteState(createTextInput(), maxHintsCount), [maxHintsCount])
 
     const inputProps: InputProps = {
         value: countryAutoComplete.textInput.value,
@@ -58,5 +58,5 @@ const CountriesInput = observer(({
 })
 
 export {
-    CountriesInput,
+    CountryAutoComplete,
 };

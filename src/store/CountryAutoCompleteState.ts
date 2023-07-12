@@ -2,7 +2,7 @@ import {makeAutoObservable, runInAction} from "mobx";
 import {CountryInfo, getCountryByName} from "../api/apiService";
 import {TextInput} from "./TextInput";
 
-class CountryAutoComplete {
+class CountryAutoCompleteState {
     autoCompleteCountries: CountryInfo[] = []
     isLoading: boolean = false
     textInput: TextInput
@@ -56,4 +56,4 @@ class CountryAutoComplete {
     }
 }
 
-export default CountryAutoComplete
+export default CountryAutoCompleteState
