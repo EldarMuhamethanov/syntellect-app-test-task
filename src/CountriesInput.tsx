@@ -19,14 +19,17 @@ function getPopoverContent(
 ): JSX.Element | null {
     return isLoading || autoCompleteCountries.length > 0
         ? <SelectList
-            items={autoCompleteCountries.map(country => <CountryListItem
-                key={`${country.name}_${country.fullName}`}
-                id={`${country.name}_${country.fullName}`}
-                name={country.name}
-                fullName={country.fullName}
-                flagSrc={country.flag}
-                onClick={() => onCountryClick(country.fullName)}
-            />)}
+            items={autoCompleteCountries.map(country => {
+                const id = `${country.name}_${country.fullName}`
+                return <CountryListItem
+                    key={id}
+                    id={id}
+                    name={country.name}
+                    fullName={country.fullName}
+                    flagSrc={country.flag}
+                    onClick={() => onCountryClick(country.fullName)}
+                />
+            })}
             isLoading={isLoading}
         />
         : null
