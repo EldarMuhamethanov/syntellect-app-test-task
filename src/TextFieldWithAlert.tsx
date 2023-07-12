@@ -3,11 +3,11 @@ import {InputProps} from "./components/Input/Input";
 import {ButtonProps} from "./components/button/Button";
 import {TextFieldsWithButtons} from "./patterns/TextFieldsWithButtons";
 import {createTextInput} from "./store/TextInput";
-import {TextFieldWithAlertModel} from "./store/TextFieldWithAlertModel";
+import {TextFieldWithAlertState} from "./store/TextFieldWithAlertState";
 import {observer} from "mobx-react-lite";
 
 const TextFieldWithAlert = observer(() => {
-    const textFieldWithAlert = useMemo(() => new TextFieldWithAlertModel(createTextInput()), [])
+    const textFieldWithAlert = useMemo(() => new TextFieldWithAlertState(createTextInput()), [])
 
     const inputProps: InputProps = {
         value: textFieldWithAlert.textInput.value,

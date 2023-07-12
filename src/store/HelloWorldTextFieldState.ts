@@ -1,7 +1,8 @@
 import {TextInput} from "./TextInput";
 import {makeAutoObservable} from "mobx";
 
-class TextFieldWithAlertModel {
+
+class HelloWorldTextFieldState {
     textInput: TextInput
 
     constructor(textInput: TextInput) {
@@ -9,15 +10,15 @@ class TextFieldWithAlertModel {
         this.textInput = textInput
     }
 
-    alertWithInputValue() {
-        alert(this.textInput.value)
+    clearInput() {
+        this.textInput.setInputValue('')
     }
 
-    alertWithNumberValue() {
-        Number.isFinite(Number(this.textInput.value)) && alert(this.textInput.value)
+    setHelloWorld() {
+        this.textInput.setInputValue('Hello World')
     }
 }
 
 export {
-    TextFieldWithAlertModel,
+    HelloWorldTextFieldState,
 }

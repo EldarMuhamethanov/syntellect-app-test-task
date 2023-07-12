@@ -2,12 +2,12 @@ import {TextFieldsWithButtons} from "./patterns/TextFieldsWithButtons";
 import {useMemo} from "react";
 import {InputProps} from "./components/Input/Input";
 import {ButtonProps} from "./components/button/Button";
-import {HelloWorldTextFieldModel} from "./store/HelloWorldTextFieldModel";
+import {HelloWorldTextFieldState} from "./store/HelloWorldTextFieldState";
 import {createTextInput} from "./store/TextInput";
 import {observer} from "mobx-react-lite";
 
 const HelloWorldTextField = observer(() => {
-    const helloWorldTextField = useMemo(() => new HelloWorldTextFieldModel(createTextInput()),[])
+    const helloWorldTextField = useMemo(() => new HelloWorldTextFieldState(createTextInput()),[])
 
     const inputProps: InputProps = {
         value: helloWorldTextField.textInput.value,
