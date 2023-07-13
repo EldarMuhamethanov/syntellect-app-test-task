@@ -7,9 +7,13 @@ class CountryAutoCompleteState {
     isLoading: boolean = false
     textInput: TextInput
 
+    private promisesCache: Map<string, Promise<CountryInfo[]>> = new Map()
+
     private readonly  maxHintsCount: number | undefined
 
-    private cachedRequests: Map<string, CountryInfo[]> = new Map()
+    private cachedResults: Map<string, CountryInfo[]> = new Map()
+
+    private lastPromise: Promise<CountryInfo[]> | null = null
 
     constructor(textInput: TextInput, maxHintsCount: number | undefined) {
         makeAutoObservable(this)
@@ -19,28 +23,61 @@ class CountryAutoCompleteState {
 
     setInputValue(value: string) {
         this.textInput.setInputValue(value)
-        this.fetchCountries()
+        this.updateAutocompleteList()
     }
 
-    fetchCountries() {
+    private updateAutocompleteList() {
         const value = this.textInput.value
-        const cachedResult = this.cachedRequests.get(value)
+        if (!value) {
+            this.lastPromise = null
+            this.isLoading = false
+            this.autoCompleteCountries = []
+            return
+        }
+
+        const cachedResult = this.cachedResults.get(value)
         if (cachedResult) {
+            this.isLoading = false
+            this.lastPromise = null
             this.autoCompleteCountries = this.maxHintsCount ? cachedResult.slice(0, this.maxHintsCount) : cachedResult
             return
         }
 
         this.isLoading = true
-        getCountryByName(value)
-            .then(result => {
-                const withoutDuplicates = this.removeDuplicatesCountries(result)
-                this.cachedRequests.set(value, withoutDuplicates)
 
-                runInAction(() => {
-                    this.autoCompleteCountries = this.maxHintsCount ? withoutDuplicates.slice(0, this.maxHintsCount) : result
-                    this.isLoading = false
-                })
+        const promise = this.fetchCountries(value)
+
+        promise
+            .then((result) => {
+                const withoutDuplicatesResult = this.removeDuplicatesCountries(result)
+                this.cachedResults.set(value, withoutDuplicatesResult)
+
+                if (promise === this.lastPromise) {
+                    this.lastPromise = null
+                    runInAction(() => {
+                        this.autoCompleteCountries = this.maxHintsCount ? withoutDuplicatesResult.slice(0, this.maxHintsCount) : result
+                        this.isLoading = false
+                    })
+                }
             })
+    }
+
+
+    private fetchCountries(value: string): Promise<CountryInfo[]> {
+        const cachedPromise = this.promisesCache.get(value)
+        if (cachedPromise) {
+            this.lastPromise = cachedPromise
+            return cachedPromise
+        }
+        try {
+            const promise = getCountryByName(value)
+            this.lastPromise = promise
+            this.promisesCache.set(value, promise)
+            return promise
+        }
+        finally {
+            this.promisesCache.delete(value)
+        }
     }
 
     private removeDuplicatesCountries(countries: CountryInfo[]): CountryInfo[] {
